@@ -8,7 +8,6 @@
         <a class="link2" @click.prevent="goAbout">About</a>
         <a class="link2" @click.prevent="goBlog">Blog</a>
       </div>
-      <div class="link3"></div>
     </div>
   </nav>
 </template>

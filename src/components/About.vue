@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Nav />
+    <Nav v-if="!isShow" />
+    <NavBar v-if="isShow" />
     <Bg class="bg" />
     <div class="contentBox">
       <Content
@@ -16,11 +17,13 @@
 
 <script>
 import Nav from "@/components/Nav";
+import NavBar from "@/components/NavBar";
 import Bg from "@/components/Bg";
 import Content from "@/components/Content";
 export default {
   data() {
     return {
+      isShow: false,
       datas: [
         {
           title: "Full-Stack Developer",
@@ -77,10 +80,34 @@ export default {
       ]
     };
   },
+  watch: {
+    screenWidth() {
+      if (document.body.offsetWidth < 992) {
+        this.isShow = true;
+      } else {
+        this.isShow = false;
+      }
+    }
+  },
+  created() {
+    if (document.body.offsetWidth < 992) {
+      this.isShow = true;
+    } else {
+      this.isShow = false;
+    }
+  },
+  mounted() {
+    const that = this;
+    window.onresize = () => {
+      window.screenWidth = document.body.clientWidth;
+      that.screenWidth = window.screenWidth;
+    };
+  },
   components: {
     Nav,
     Bg,
-    Content
+    Content,
+    NavBar
   }
 };
 </script>
